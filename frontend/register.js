@@ -2,7 +2,7 @@
 // Registration only, on its own page. Plain fetch() to the existing
 // backend's /register route - no other file touched.
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:3000';fghgj
 
 function showError(message) {
     document.querySelector('#registerError').textContent = message;
