@@ -1,0 +1,157 @@
+/* auth.css - shared styling for login.html and register.html */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: linear-gradient(135deg, #6a5cff 0%, #8a6dff 45%, #a98bff 100%);
+  padding: 1rem;
+}
+
+.card {
+  background: #fff;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 16px;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 20px 45px rgba(40, 20, 90, 0.25);
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.brand .logo {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.brand h1 {
+  font-size: 1.4rem;
+  margin: 0.4rem 0 0;
+  color: #2b2140;
+}
+
+.brand p {
+  margin: 0.25rem 0 0;
+  color: #8b83a0;
+  font-size: 0.85rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4a4360;
+  margin-bottom: -0.4rem;
+}
+
+input {
+  padding: 0.7rem 0.85rem;
+  border: 1.5px solid #e3e0ee;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+input:focus {
+  border-color: #6a5cff;
+}
+
+.btn-primary {
+  margin-top: 0.4rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 10px;
+  background: #6a5cff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-primary:hover {
+  background: #5a4be0;
+}
+
+.btn-secondary {
+  padding: 0.75rem;
+  border: 1.5px solid #6a5cff;
+  border-radius: 10px;
+  background: transparent;
+  color: #6a5cff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.switch-link {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.88rem;
+  color: #6b6480;
+}
+
+.switch-link a {
+  color: #6a5cff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switch-link a:hover {
+  text-decoration: underline;
+}
+
+.error, .success {
+  min-height: 1.2em;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.error { color: #d64545; }
+.success { color: #1f9d55; }
+
+/* logged-in view */
+.welcome-card {
+  text-align: center;
+}
+
+.welcome-card .avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #ece8ff;
+  color: #6a5cff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.welcome-card h2 {
+  margin: 0 0 0.25rem;
+  color: #2b2140;
+}
+
+.welcome-card p {
+  color: #8b83a0;
+  margin: 0 0 1.5rem;
+}

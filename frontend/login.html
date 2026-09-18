@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Owl Pai Lei</title>
+    <link rel="stylesheet" href="auth.css" />
+  </head>
+  <body>
+    <!-- Shown when nobody is logged in -->
+    <div class="card" id="authCard">
+      <div class="brand">
+        <div class="logo">🦉</div>
+        <h1>Owl Pai Lei</h1>
+        <p>Log in to your account</p>
+      </div>
+
+      <form id="loginForm">
+        <label for="loginUsername">Username</label>
+        <input id="loginUsername" placeholder="Enter your username" autocomplete="username" required />
+
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password" required />
+
+        <button type="submit" class="btn-primary">Login</button>
+      </form>
+
+      <div id="authError" class="error"></div>
+
+      <p class="switch-link">
+        Don't have an account? <a href="register.html">Register</a>
+      </p>
+    </div>
+
+    <!-- Shown after login -->
+    <div class="card welcome-card" id="welcomeCard" hidden>
+      <div class="avatar" id="avatarInitial"></div>
+      <h2 id="welcomeText"></h2>
+      <p>You're logged in.</p>
+      <button id="logoutBtn" type="button" class="btn-secondary">Logout</button>
+    </div>
+
+    <script src="login.js"></script>
+  </body>
+</html>
