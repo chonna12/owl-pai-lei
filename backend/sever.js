@@ -50,7 +50,9 @@ app.post('/items', (req, res) => {
         name,
         cost,
         description,
-        userId: Number(userId)
+        userId: Number(userId),
+        username: user ? user.username : "Unknown User"
+
     };
 
     items.push(newItem);
