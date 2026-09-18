@@ -43,7 +43,7 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/items', (req, res) => {
-    const { name, cost, description, userId } = req.body;
+    const { name, cost, description, username, userId } = req.body;
 
     const newItem = {
         id: itemIdCounter++,
