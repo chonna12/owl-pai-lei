@@ -1,4 +1,33 @@
 /* =========================================
+   ตั้งค่าตัวแปรสี (Color Palette)
+   ========================================= */
+:root {
+    /* Primary Theme: Owl (Beige + Brown) จากภาพแรก */
+    --owl-bg: #F3E9DD;
+    /* พื้นหลังหน้าเว็บ */
+    --owl-card-bg: #FFFFFF;
+    /* พื้นหลังการ์ด */
+    --owl-border: #E6D5C1;
+    /* เส้นขอบ */
+    --owl-primary: #A67C52;
+    /* สีปุ่มหลัก */
+    --owl-text: #6B4E3D;
+    /* สีตัวอักษรทั่วไป */
+
+    /* Secondary Theme: Night (Blue + Gold) จากภาพที่สอง */
+    --night-darkest: #132442;
+    /* สีหัวข้อ (Heading) */
+    --night-dark: #1a3a63;
+    /* สีเมื่อ Hover ปุ่มรอง */
+    --night-muted: #637d92;
+    /* สีปุ่มลบ (Delete) */
+    --night-accent: #bc8909;
+    /* สีปุ่มแก้ไขและราคา (Highlight) */
+    --night-light: #e8d1b6;
+    /* สีพื้นหลังส่วน Action */
+}
+
+/* =========================================
    Global Styles (ตั้งค่าพื้นฐาน)
    ========================================= */
 * {
@@ -9,8 +38,15 @@
 }
 
 body {
-    background-color: #f4f7f6;
-    color: #333;
+    background-color: var(--owl-bg);
+    color: var(--owl-text);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: var(--night-darkest);
 }
 
 /* =========================================
@@ -23,9 +59,18 @@ textarea {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
-    border: 1px solid #ccc;
+    border: 2px solid var(--owl-border);
     border-radius: 8px;
     font-size: 1rem;
+    color: var(--night-darkest);
+    background-color: #faf8f5;
+    transition: border-color 0.3s;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--owl-primary);
+    outline: none;
 }
 
 button {
@@ -33,30 +78,36 @@ button {
     padding: 12px;
     border: none;
     border-radius: 8px;
-    background-color: #007bff;
+    background-color: var(--owl-primary);
     color: white;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.1s;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: var(--owl-text);
+}
+
+button:active {
+    transform: scale(0.98);
 }
 
 .error-text {
-    color: #dc3545;
+    color: #d9534f;
     font-size: 0.9rem;
     margin-top: 5px;
     text-align: center;
+    font-weight: bold;
 }
 
 .success-text {
-    color: #28a745;
+    color: var(--owl-primary);
     font-size: 0.9rem;
     margin-top: 5px;
     text-align: center;
+    font-weight: bold;
 }
 
 /* =========================================
@@ -70,18 +121,20 @@ button:hover {
 }
 
 .auth-card {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background: var(--owl-card-bg);
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(107, 78, 61, 0.15);
+    /* เงาสีน้ำตาลอ่อน */
     width: 100%;
     max-width: 400px;
+    border-top: 6px solid var(--night-darkest);
+    /* ขอบบนสีน้ำเงินกลางคืน */
 }
 
 .auth-card h2 {
     text-align: center;
-    margin-bottom: 20px;
-    color: #2c3e50;
+    margin-bottom: 25px;
 }
 
 /* =========================================
@@ -90,44 +143,57 @@ button:hover {
 .manager-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 30px 20px;
 }
 
 .header-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--owl-border);
+}
+
+.header-bar h2 {
+    color: var(--night-darkest);
 }
 
 .header-bar button {
     width: auto;
-    background-color: #dc3545;
-    padding: 8px 15px;
+    background-color: var(--night-muted);
+    padding: 8px 20px;
+}
+
+.header-bar button:hover {
+    background-color: var(--night-dark);
 }
 
 /* ส่วนกล่องเพิ่มข้อมูล */
 .add-item-box {
-    background: white;
+    background: var(--owl-card-bg);
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(107, 78, 61, 0.1);
+    margin-bottom: 40px;
+    border: 1px solid var(--owl-border);
 }
 
 /* ส่วนอัปโหลดรูปภาพ */
 .image-upload-wrapper {
-    border: 2px dashed #bbb;
+    border: 2px dashed var(--owl-primary);
     border-radius: 8px;
-    padding: 20px;
+    padding: 30px;
     text-align: center;
     cursor: pointer;
     margin-bottom: 15px;
-    background: #fafafa;
+    background: var(--owl-bg);
+    color: var(--owl-text);
+    transition: background-color 0.3s;
 }
 
 .image-upload-wrapper:hover {
-    background: #f0f0f0;
+    background: var(--owl-border);
 }
 
 .image-upload-wrapper input[type="file"] {
@@ -140,6 +206,7 @@ button:hover {
     object-fit: contain;
     border-radius: 8px;
     margin-top: 10px;
+    border: 1px solid var(--owl-border);
 }
 
 /* =========================================
@@ -147,33 +214,37 @@ button:hover {
    ========================================= */
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
     margin-top: 20px;
 }
 
 .item-card {
-    background: white;
+    background: var(--owl-card-bg);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(19, 36, 66, 0.08);
+    /* เงาอมน้ำเงินนิดๆ */
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s;
+    border: 1px solid var(--owl-border);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .item-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(19, 36, 66, 0.15);
 }
 
 .item-monogram {
-    height: 200px;
-    background: #e9ecef;
+    height: 220px;
+    background: var(--night-light);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4rem;
-    color: #adb5bd;
+    font-size: 5rem;
+    color: var(--owl-primary);
+    font-weight: bold;
 }
 
 .item-monogram img {
@@ -183,53 +254,57 @@ button:hover {
 }
 
 .item-body {
-    padding: 15px;
+    padding: 20px;
     flex-grow: 1;
 }
 
 .item-price {
-    color: #28a745;
+    color: var(--night-accent);
+    /* สีทองกลางคืน */
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     display: block;
-    margin-bottom: 5px;
-}
-
-.item-name {
-    font-size: 1.2rem;
-    font-weight: 600;
     margin-bottom: 8px;
 }
 
-.item-desc {
-    color: #6c757d;
-    font-size: 0.9rem;
-    line-height: 1.4;
+.item-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--night-darkest);
 }
 
+.item-desc {
+    color: var(--owl-text);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* ส่วนปุ่มใน Card */
 .item-actions {
-    padding: 15px;
-    background: #f8f9fa;
-    border-top: 1px solid #eee;
+    padding: 15px 20px;
+    background: var(--owl-bg);
+    border-top: 1px solid var(--owl-border);
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
 .editBtn {
-    background-color: #ffc107;
-    color: #212529;
+    background-color: var(--night-accent);
+    color: white;
 }
 
 .editBtn:hover {
-    background-color: #e0a800;
+    background-color: #9c7308;
 }
 
+/* สีทองเข้มขึ้น */
 .deleteBtn {
-    background-color: #dc3545;
+    background-color: var(--night-muted);
 }
 
 .deleteBtn:hover {
-    background-color: #c82333;
+    background-color: var(--night-darkest);
 }
 
 /* =========================================
@@ -241,7 +316,8 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(19, 36, 66, 0.6);
+    /* พื้นหลังทึบสีน้ำเงินกลางคืน */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -249,24 +325,33 @@ button:hover {
 }
 
 .modal-content {
-    background: white;
+    background: var(--owl-card-bg);
     padding: 30px;
-    border-radius: 12px;
+    border-radius: 16px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--owl-primary);
 }
 
 .modal-actions {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 15px;
+    margin-top: 20px;
 }
 
 #cancelEditBtn {
-    background-color: #6c757d;
+    background-color: var(--night-muted);
 }
 
 #cancelEditBtn:hover {
-    background-color: #5a6268;
+    background-color: var(--night-dark);
+}
+
+#saveEditBtn {
+    background-color: var(--owl-primary);
+}
+
+#saveEditBtn:hover {
+    background-color: var(--owl-text);
 }
