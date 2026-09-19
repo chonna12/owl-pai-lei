@@ -45,6 +45,8 @@ app.post('/login', (req, res) => {
 app.post('/items', (req, res) => {
     const { name, cost, description, username, userId } = req.body;
 
+    const user = users.find(u => u.id === Number(userId));
+
     const newItem = {
         id: itemIdCounter++,
         name,
