@@ -45,7 +45,6 @@ app.post('/login', (req, res) => {
 app.post('/items', (req, res) => {
     const { name, cost, description, userId, image } = req.body;   // <-- เพิ่ม image ตรงนี้
 
-    const user = users.find(u => u.id === Number(userId));   // <-- เพิ่มบรรทัดนี้ใหม่ทั้งบรรทัด (แก้บั๊ก user ไม่ถูกประกาศด้วย)
 
     const newItem = {
         id: itemIdCounter++,
