@@ -3,7 +3,8 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 app.use(express.static('public'));
 
@@ -55,7 +56,7 @@ app.post('/items', (req, res) => {
         image,
         userId: Number(userId),
         username: user ? user.username : "Unknown User"
-       
+
 
     };
 
@@ -84,6 +85,31 @@ app.delete('/items/:id', (req, res) => {
         res.json({ success: true });
     } else {
         res.status(404).json({ error: "not found" });
+    }
+});
+
+// 6. Edit Item (แก้ไขข้อมูล)
+app.put('/items/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const { name, cost, description, image } = req.body;
+
+    // หาตำแหน่ง index ของไอเทมที่ต้องการแก้ไข
+    const itemIndex = items.findIndex(item => item.id === id);
+
+    if (itemIndex !== -1) {
+        // อัปเดตข้อมูลใหม่ทับข้อมูลเดิม
+        items[itemIndex].name = name;
+        items[itemIndex].cost = cost;
+        items[itemIndex].description = description;
+
+        // ถ้ามีการส่งรูปภาพใหม่มา ค่อยอัปเดตรูป
+        if (image !== undefined) {
+            items[itemIndex].image = image;
+        }
+
+        res.json({ success: true });
+    } else {
+        res.status(404).json({ success: false, error: "ไม่พบข้อมูลที่ต้องการแก้ไข" });
     }
 });
 
