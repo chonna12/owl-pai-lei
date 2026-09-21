@@ -55,7 +55,7 @@ app.post('/items', (req, res) => {
         image,
         userId: Number(userId),
         username: user ? user.username : "Unknown User"
-       
+
 
     };
 
