@@ -478,18 +478,15 @@ body::after {
     inset: 0;
     background: rgba(8, 11, 24, 0.85);
     backdrop-filter: blur(6px);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     z-index: 200;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s;
 }
 
+/* เปิด modal ด้วย JS: editModalOverlay.style.display = "flex" */
 .modal-overlay.open {
-    opacity: 1;
-    pointer-events: all;
+    display: flex;
 }
 
 .modal {
