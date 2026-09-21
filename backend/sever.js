@@ -72,6 +72,23 @@ app.get('/items/:userId', (req, res) => {
     res.json(userItems);
 });
 
+app.put('/items/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const { name, cost, description, image } = req.body;
+
+    const item = items.find(item => item.id === id);
+
+    if (item) {
+        item.name = name;
+        item.cost = cost;
+        item.description = description;
+        if (image) item.image = image;
+        res.json({ success: true });
+    } else {
+        res.status(404).json({ error: "not found" });
+    }
+});
+
 
 app.delete('/items/:id', (req, res) => {
     const id = Number(req.params.id);

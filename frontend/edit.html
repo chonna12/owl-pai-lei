@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Atelier — My Shop</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="hero">
+        <p class="hero-eyebrow">Manage your listings</p>
+        <h1 class="hero-title">Atelier</h1>
+        <p class="hero-sub">เพิ่ม แก้ไข และจัดการสินค้าที่คุณอยากขาย</p>
+    </header>
+
+    <main class="page">
+
+
+        <section class="add-card">
+            <h2 class="section-title">เพิ่มสินค้าใหม่</h2>
+            <div class="add-form">
+
+
+                <label for="addImage" class="image-drop" id="imageDrop">
+
+                    <img id="addImagePreview" class="image-drop-preview" style="display:none;">
+
+                    <span id="imageDropLabel" class="image-drop-label">+ เพิ่มรูปสินค้า</span>
+                </label>
+                <input type="file" id="addImage" accept="image/*" style="display:none;">
+
+
+                <div class="add-form-fields">
+                    <div class="field">
+                        <label for="addName">ชื่อสินค้า</label>
+                        <input type="text" id="addName" placeholder="เช่น เสื้อเชิ้ตลินินสีครีม">
+                    </div>
+                    <div class="field">
+                        <label for="addCost">ราคา (บาท)</label>
+                        <input type="number" id="addCost" placeholder="0">
+                    </div>
+                    <div class="field">
+                        <label for="addDescription">รายละเอียด</label>
+                        <input type="text" id="addDescription" placeholder="เนื้อผ้า, ไซซ์, สภาพสินค้า ฯลฯ">
+                    </div>
+                    <button id="addBtn" class="btn-primary">+ เพิ่มลงร้าน</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="list-section">
+            <div class="list-header">
+                <h2 class="section-title">สินค้าในร้าน</h2>
+                <span id="itemCount" class="item-count">0 ชิ้น</span>
+            </div>
+            <div id="itemGrid" class="item-grid"></div>
+            <!-- ข้อความนี้จะโชว์เฉพาะตอนยังไม่มีสินค้าเลย -->
+            <p id="emptyState" class="empty-state">ยังไม่มีสินค้าในร้าน ลองเพิ่มชิ้นแรกดูสิ</p>
+        </section>
+
+    </main>
+
+
+    <div id="editModalOverlay" class="modal-overlay">
+        <div class="modal">
+            <h2 class="section-title">แก้ไขสินค้า</h2>
+            <input type="hidden" id="editId">
+
+            <input type="hidden" id="editImage">
+            <label for="editImageInput" class="image-drop image-drop-small" id="editImageDrop">
+                <img id="editImagePreview" class="image-drop-preview" style="display:none;">
+                <span id="editImageDropLabel" class="image-drop-label">+ เปลี่ยนรูป</span>
+            </label>
+            <input type="file" id="editImageInput" accept="image/*" style="display:none;">
+            <div class="field">
+                <label for="editName">ชื่อสินค้า</label>
+                <input type="text" id="editName">
+            </div>
+            <div class="field">
+                <label for="editCost">ราคา (บาท)</label>
+                <input type="number" id="editCost">
+            </div>
+            <div class="field">
+                <label for="editDescription">รายละเอียด</label>
+                <input type="text" id="editDescription">
+            </div>
+            <div class="modal-actions">
+                <button id="cancelEditBtn" class="btn-ghost">ยกเลิก</button>
+                <button id="saveEditBtn" class="btn-primary">บันทึก</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="edit.js"></script>
+</body>
+
+</html>
