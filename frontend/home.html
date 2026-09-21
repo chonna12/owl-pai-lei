@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Atelier — Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ── Nav ── -->
+    <nav>
+        <a href="home.html">Atelier</a>
+        <div>
+            <a href="home.html">Home</a>
+            <a href="edit.html">My Items</a>
+            <span id="navUsername"></span>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <header>
+        <p>Marketplace</p>
+        <h1>Atelier</h1>
+        <p>สินค้าจากทุกคนในร้าน</p>
+    </header>
+
+    <!-- ── Items ── -->
+    <main>
+        <h2>สินค้าทั้งหมด <span id="itemCount"></span></h2>
+        <div id="itemGrid">กำลังโหลด...</div>
+    </main>
+
+    <script src="home.js"></script>
+</body>
+
+</html>

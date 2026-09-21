@@ -74,7 +74,7 @@ document.querySelector('#loginForm').addEventListener('submit', async (event) =>
             body: JSON.stringify({ username, password })
         });
         saveUser({ userId: result.userId, username: result.username });
-        renderView();
+        window.location.href = 'home.html';
     } catch (error) {
         showAuthError(error.message);
     }

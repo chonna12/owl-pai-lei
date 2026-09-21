@@ -1,37 +1,45 @@
 <!doctype html>
 <html lang="th">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register - Owl Pai Lei</title>
-    <link rel="stylesheet" href="auth.css" />
-  </head>
-  <body>
-    <div class="card">
-      <div class="brand">
-        <div class="logo">🦉</div>
-        <h1>Create your account</h1>
-        <p>Owl Pai Lei</p>
-      </div>
 
-      <form id="registerForm">
-        <label for="registerUsername">Username</label>
-        <input id="registerUsername" placeholder="Choose a username" autocomplete="username" required />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Owl Pai Lei</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-        <label for="registerPassword">Password</label>
-        <input id="registerPassword" type="password" placeholder="Choose a password" autocomplete="new-password" required />
-
-        <button type="submit" class="btn-primary">Register</button>
-      </form>
-
-      <div id="registerError" class="error"></div>
-      <div id="registerSuccess" class="success"></div>
-
-      <p class="switch-link">
-        Already have an account? <a href="login.html">Login</a>
-      </p>
+<body>
+  <div class="card">
+    <div class="brand">
+      <div class="logo">🦉</div>
+      <h1>Create your account</h1>
+      <p>Owl Pai Lei</p>
     </div>
 
-    <script src="register.js"></script>
-  </body>
+    <form id="registerForm">
+      <label for="registerUsername">Username</label>
+      <input id="registerUsername" placeholder="Choose a username" autocomplete="username" required />
+
+      <label for="registerPassword">Password</label>
+      <input id="registerPassword" type="password" placeholder="Choose a password" autocomplete="new-password"
+        required />
+
+      <button type="submit" class="btn-primary">Register</button>
+    </form>
+
+    <div id="registerError" class="error"></div>
+    <div id="registerSuccess" class="success"></div>
+
+    <p class="switch-link">
+      Already have an account? <a href="login.html">Login</a>
+    </p>
+  </div>
+
+  <script src="register.js"></script>
+</body>
+
 </html>
