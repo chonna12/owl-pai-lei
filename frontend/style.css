@@ -611,10 +611,16 @@ nav a:hover {
 /* Center the card on the page */
 body:has(.card) {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     padding: 2rem 1rem;
+}
+
+/* ซ่อน card ที่มี hidden attribute */
+.card[hidden] {
+    display: none !important;
 }
 
 .card {

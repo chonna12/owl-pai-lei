@@ -1,7 +1,11 @@
-
 const API_URL = 'http://localhost:3000';
 
 let currentUser = loadUser();
+
+// ถ้า login อยู่แล้ว ไปหน้า home เลย
+if (currentUser) {
+    window.location.href = 'home.html';
+}
 
 function loadUser() {
     try {
