@@ -1,0 +1,54 @@
+<div class="atelier-container">
+    <!-- ส่วนหัว (Header) -->
+    <header class="atelier-header">
+        <p class="sub-heading">Manage your listings</p>
+        <h1 class="main-heading">Atelier</h1>
+        <p class="desc-heading">เพิ่ม แก้ไข และจัดการสินค้าที่คุณอยากขาย</p>
+    </header>
+
+    <!-- กล่องเพิ่มสินค้า (Add Product Box) -->
+    <section class="add-item-box">
+        <h2>เพิ่มสินค้าใหม่</h2>
+
+        <!-- ปุ่มอัปโหลดรูป -->
+        <div class="image-upload-wrapper" id="imageUploadBox">
+            <span id="imageDropLabel">+ เพิ่มรูปสินค้า</span>
+            <input type="file" id="addImage" accept="image/*" style="display: none;">
+            <img id="addImagePreview" class="preview-img" style="display: none;">
+        </div>
+
+        <!-- ฟอร์มกรอกข้อมูล -->
+        <div class="form-group">
+            <label>ชื่อสินค้า</label>
+            <input type="text" id="addName" placeholder="เช่น เสื้อเชิ้ตลินินสีครีม">
+        </div>
+
+        <div class="form-group">
+            <label>ราคา (บาท)</label>
+            <input type="number" id="addCost" placeholder="0">
+        </div>
+
+        <div class="form-group">
+            <label>รายละเอียด</label>
+            <textarea id="addDescription" placeholder="เนื้อผ้า, ไซซ์, สภาพสินค้า ฯลฯ" rows="3"></textarea>
+        </div>
+
+        <button id="addBtn" class="btn-submit">+ เพิ่มลงร้าน</button>
+    </section>
+
+    <!-- ส่วนแสดงรายการสินค้า (Product List) -->
+    <section class="product-list-section">
+        <div class="list-header">
+            <h2>สินค้าในร้าน</h2>
+            <span class="item-count"><span id="itemCount">0</span> ชิ้น</span>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+            <p>ยังไม่มีสินค้าในร้าน ลองเพิ่มชิ้นแรกดูสิ</p>
+        </div>
+
+        <div class="item-grid" id="itemGrid">
+            <!-- การ์ดสินค้าจะโผล่ตรงนี้ -->
+        </div>
+    </section>
+</div>

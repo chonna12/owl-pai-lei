@@ -6,36 +6,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Register - Owl Pai Lei</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- นำเข้า FontAwesome สำหรับไอคอน -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-  <div class="card">
-    <div class="brand">
-      <div class="logo">🦉</div>
-      <h1>Create your account</h1>
-      <p>Owl Pai Lei</p>
+  <div class="auth-container">
+    <div class="auth-card">
+      <!-- รูปไอคอนสมัครสมาชิกด้านบน -->
+      <div class="avatar-header">
+        <i class="fas fa-user-plus avatar-icon"></i>
+      </div>
+
+      <!-- ฟอร์มสำหรับสมัครสมาชิก -->
+      <form id="registerForm">
+        <!-- ช่อง Username -->
+        <div class="input-group">
+          <i class="fas fa-user input-icon"></i>
+          <input type="text" id="registerUsername" placeholder="Username" autocomplete="username" required />
+        </div>
+
+        <!-- ช่อง Password -->
+        <div class="input-group">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" id="registerPassword" placeholder="Password" autocomplete="new-password" required />
+          <i class="fas fa-eye-slash toggle-password" id="toggleRegPassword"></i>
+        </div>
+
+        <button type="submit" class="btn-primary">REGISTER</button>
+      </form>
+
+      <!-- พื้นที่แสดงข้อความ Error หรือ Success จาก JavaScript -->
+      <div id="registerError" class="error-text"></div>
+      <div id="registerSuccess" class="success-text"></div>
+
+      <!-- ลิงก์กลับไปหน้า Login -->
+      <p class="switch-link">
+        Already have an account? <a href="login.html">Login</a>
+      </p>
     </div>
-
-    <form id="registerForm">
-      <label for="registerUsername">Username</label>
-      <input id="registerUsername" placeholder="Choose a username" autocomplete="username" required />
-
-      <label for="registerPassword">Password</label>
-      <input id="registerPassword" type="password" placeholder="Choose a password" autocomplete="new-password"
-        required />
-
-      <button type="submit" class="btn-primary">Register</button>
-    </form>
-
-    <div id="registerError" class="error"></div>
-    <div id="registerSuccess" class="success"></div>
-
-    <p class="switch-link">
-      Already have an account? <a href="login.html">Login</a>
-    </p>
   </div>
 
   <script src="register.js"></script>
+  <script>
+    // สคริปต์สำหรับกดเปิด/ปิดตาดูรหัสผ่าน
+    const toggleRegPassword = document.querySelector('#toggleRegPassword');
+    const regPassword = document.querySelector('#registerPassword');
+
+    if (toggleRegPassword && regPassword) {
+      toggleRegPassword.addEventListener('click', function () {
+        const type = regPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+        regPassword.setAttribute('type', type);
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+      });
+    }
+  </script>
 </body>
 
 </html>

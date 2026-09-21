@@ -6,41 +6,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - Owl Pai Lei</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- นำเข้า FontAwesome สำหรับไอคอน -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-  <!-- Shown when nobody is logged in -->
-  <div class="card" id="authCard">
-    <div class="brand">
-      <div class="logo">🦉</div>
-      <h1>Owl Pai Lei</h1>
-      <p>Log in to your account</p>
+  <div class="auth-container">
+    <div class="auth-card" id="authCard">
+      <!-- รูปโปรไฟล์ด้านบน -->
+      <div class="avatar-header">
+        <i class="fas fa-user-circle avatar-icon"></i>
+      </div>
+
+      <form id="loginForm">
+        <!-- ช่อง Username -->
+        <div class="input-group">
+          <i class="fas fa-user input-icon"></i>
+          <input type="text" id="loginUsername" placeholder="Username" autocomplete="username" required />
+        </div>
+
+        <!-- ช่อง Password -->
+        <div class="input-group">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" required />
+          <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
+        </div>
+
+        <!-- แถว Remember me & Forgot password -->
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" id="rememberMe"> Remember me
+          </label>
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-primary">LOGIN</button>
+      </form>
+
+      <div id="authError" class="error-text"></div>
+
+      <p class="switch-link">
+        Don't have an account? <a href="register.html">Register</a>
+      </p>
     </div>
 
-    <form id="loginForm">
-      <label for="loginUsername">Username</label>
-      <input id="loginUsername" placeholder="Enter your username" autocomplete="username" required />
-
-      <label for="loginPassword">Password</label>
-      <input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password"
-        required />
-
-      <button type="submit" class="btn-primary">Login</button>
-    </form>
-
-    <div id="authError" class="error"></div>
-
-    <p class="switch-link">
-      Don't have an account? <a href="register.html">Register</a>
-    </p>
-  </div>
-
-  <!-- Shown after login -->
-  <div class="card welcome-card" id="welcomeCard" hidden>
-    <div class="avatar" id="avatarInitial"></div>
-    <h2 id="welcomeText"></h2>
-    <p>You're logged in.</p>
-    <button id="logoutBtn" type="button" class="btn-secondary">Logout</button>
+    <!-- ส่วนที่แสดงเมื่อล็อกอินสำเร็จ -->
+    <div class="auth-card welcome-card" id="welcomeCard" hidden>
+      <div class="avatar-header">
+        <div class="avatar" id="avatarInitial"></div>
+      </div>
+      <h2 id="welcomeText"></h2>
+      <p>You're logged in.</p>
+      <button id="logoutBtn" type="button" class="btn-primary">Logout</button>
+    </div>
   </div>
 
   <script src="login.js"></script>
