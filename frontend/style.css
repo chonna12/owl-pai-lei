@@ -138,6 +138,133 @@ button:active {
 }
 
 /* =========================================
+   หน้า Login & Register Layout ปรับใหม่
+   ========================================= */
+.auth-card {
+    background: var(--owl-card-bg);
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(107, 78, 61, 0.15);
+    width: 100%;
+    max-width: 400px;
+    border-top: 6px solid var(--night-darkest);
+    text-align: center;
+}
+
+/* ไอคอนผู้ใช้ด้านบนสุด */
+.avatar-header {
+    margin-bottom: 25px;
+}
+
+.avatar-icon {
+    font-size: 80px;
+    color: var(--night-darkest);
+}
+
+/* จัดการช่องกรอกข้อมูลที่มีไอคอนอยู่ด้านใน */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--night-muted);
+    font-size: 1.1rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    /* เว้นที่ฝั่งซ้ายให้ไอคอน */
+    border: 2px solid var(--owl-primary);
+    border-radius: 30px;
+    /* ขอบโค้งมนแบบแคปซูล */
+    font-size: 1rem;
+    color: var(--night-darkest);
+    background-color: transparent;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--night-accent);
+    outline: none;
+}
+
+/* ไอคอนเปิด/ปิดรหัสผ่าน */
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--night-muted);
+}
+
+/* แถว Remember me และ Forgot password */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+    padding: 0 5px;
+}
+
+.remember-me {
+    color: var(--night-darkest);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: var(--night-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.forgot-password:hover {
+    color: var(--night-accent);
+}
+
+/* ปุ่ม Login */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 30px;
+    /* ขอบโค้งมนแบบแคปซูล */
+    background-color: var(--night-darkest);
+    /* สีน้ำเงินเข้ม */
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--night-dark);
+}
+
+.switch-link {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--owl-text);
+}
+
+.switch-link a {
+    color: var(--night-accent);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =========================================
    หน้า Manager (หน้าจัดการไอเทม)
    ========================================= */
 .manager-container {

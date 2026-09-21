@@ -99,4 +99,18 @@ document.querySelector('#logoutBtn').addEventListener('click', () => {
     renderView();
 });
 
+const togglePassword = document.querySelector('#togglePassword');
+const password = document.querySelector('#loginPassword');
+
+if (togglePassword && password) {
+    togglePassword.addEventListener('click', function () {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+
+        // สลับไอคอนดวงตา
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+}
+
 renderView();
