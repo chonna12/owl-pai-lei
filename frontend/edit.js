@@ -2,12 +2,27 @@
 
 const API_URL = "http://localhost:3000";
 
+// ── Auth ───────────────────────────────────────────
+function loadUser() {
+    try {
+        const raw = localStorage.getItem('currentUser');
+        return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
+}
 
+const currentUser = loadUser();
+if (!currentUser) {
+    window.location.href = 'login.html';
+}
 
-const FIXED_USER_ID = 1;
+const FIXED_USER_ID = currentUser?.userId ?? 1;
 
-
-
+// ── Nav ────────────────────────────────────────────
+document.querySelector('#navUsername').textContent = currentUser?.username ?? '';
+document.querySelector('#logoutBtn').addEventListener('click', () => {
+    localStorage.removeItem('currentUser');
+    window.location.href = 'login.html';
+});
 
 const addName = document.getElementById("addName");
 const addCost = document.getElementById("addCost");
