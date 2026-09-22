@@ -9,6 +9,11 @@
       "id": 2,
       "username": "2",
       "password": "2"
+    },
+    {
+      "id": 3,
+      "username": "testuser",
+      "password": "testpass123"
     }
   ],
   "items": [
@@ -31,6 +36,6 @@
       "username": "1"
     }
   ],
-  "userIdCounter": 3,
-  "itemIdCounter": 5
+  "userIdCounter": 4,
+  "itemIdCounter": 6
 }
