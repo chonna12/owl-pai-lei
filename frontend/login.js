@@ -1,58 +1,42 @@
 const API_URL = 'http://localhost:3000';
 
-let currentUser = loadUser();
+// ── Token helpers ─────────────────────────────────────────
+function getToken() {
+    return localStorage.getItem('token') || null;
+}
 
-// ถ้า login อยู่แล้ว ไปหน้า home เลย
-if (currentUser) {
+function saveToken(token, username) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('username', username);
+}
+
+function clearToken() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+}
+
+function getUsername() {
+    return localStorage.getItem('username') || '';
+}
+
+// ── ถ้า login อยู่แล้ว ไปหน้า home ──────────────────────
+if (getToken()) {
     window.location.href = 'home.html';
 }
 
-function loadUser() {
-    try {
-        const raw = localStorage.getItem('currentUser');
-        return raw ? JSON.parse(raw) : null;
-    } catch {
-        return null;
-    }
-}
-
-function saveUser(user) {
-    currentUser = user;
-    localStorage.setItem('currentUser', JSON.stringify(user));
-}
-
-function clearUser() {
-    currentUser = null;
-    localStorage.removeItem('currentUser');
-}
-
+// ── Utility ───────────────────────────────────────────────
 function showAuthError(message) {
     document.querySelector('#authError').textContent = message;
 }
 
-function renderView() {
-    const authCard = document.querySelector('#authCard');
-    const welcomeCard = document.querySelector('#welcomeCard');
-
-    if (currentUser) {
-        authCard.hidden = true;
-        welcomeCard.hidden = false;
-        document.querySelector('#welcomeText').textContent = `Hi, ${currentUser.username}`;
-        document.querySelector('#avatarInitial').textContent =
-            currentUser.username.charAt(0).toUpperCase();
-    } else {
-        authCard.hidden = false;
-        welcomeCard.hidden = true;
-    }
-}
-
 async function apiRequest(path, options = {}) {
+    const token = getToken();
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
     let response;
     try {
-        response = await fetch(`${API_URL}${path}`, {
-            headers: { 'Content-Type': 'application/json' },
-            ...options
-        });
+        response = await fetch(`${API_URL}${path}`, { headers, ...options });
     } catch {
         throw new Error('Unable to connect to the server. Is the backend running?');
     }
@@ -65,6 +49,7 @@ async function apiRequest(path, options = {}) {
     return body;
 }
 
+// ── Login ─────────────────────────────────────────────────
 document.querySelector('#loginForm').addEventListener('submit', async (event) => {
     event.preventDefault();
     showAuthError('');
@@ -77,17 +62,18 @@ document.querySelector('#loginForm').addEventListener('submit', async (event) =>
             method: 'POST',
             body: JSON.stringify({ username, password })
         });
-        saveUser({ userId: result.userId, username: result.username });
+        saveToken(result.token, result.username);
         window.location.href = 'home.html';
     } catch (error) {
         showAuthError(error.message);
     }
 });
 
-document.querySelector('#logoutBtn').addEventListener('click', () => {
-
-    clearUser();
-    renderView();
-});
-
-renderView();
+// ── Logout (ถ้ามีปุ่ม logoutBtn บนหน้า login) ────────────
+const logoutBtn = document.querySelector('#logoutBtn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        clearToken();
+        window.location.reload();
+    });
+}

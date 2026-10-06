@@ -1,29 +1,39 @@
 
-
 const API_URL = "http://localhost:3000";
 
 // ── Auth ───────────────────────────────────────────
-function loadUser() {
-    try {
-        const raw = localStorage.getItem('currentUser');
-        return raw ? JSON.parse(raw) : null;
-    } catch { return null; }
+function getToken() {
+    return localStorage.getItem('token') || null;
 }
 
-const currentUser = loadUser();
-if (!currentUser) {
+function getUsername() {
+    return localStorage.getItem('username') || '';
+}
+
+const token = getToken();
+if (!token) {
     window.location.href = 'login.html';
 }
 
-const FIXED_USER_ID = currentUser?.userId ?? 1;
-
 // ── Nav ────────────────────────────────────────────
-document.querySelector('#navUsername').textContent = currentUser?.username ?? '';
+document.querySelector('#navUsername').textContent = getUsername();
 document.querySelector('#logoutBtn').addEventListener('click', () => {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
     window.location.href = 'login.html';
 });
 
+// ── Helper: fetch พร้อม Bearer token ──────────────
+function authFetch(path, options = {}) {
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        ...(options.headers || {})
+    };
+    return fetch(`${API_URL}${path}`, { ...options, headers });
+}
+
+// ── DOM refs ───────────────────────────────────────
 const addName = document.getElementById("addName");
 const addCost = document.getElementById("addCost");
 const addDescription = document.getElementById("addDescription");
@@ -31,7 +41,6 @@ const addBtn = document.getElementById("addBtn");
 const addImage = document.getElementById("addImage");
 const addImagePreview = document.getElementById("addImagePreview");
 const imageDropLabel = document.getElementById("imageDropLabel");
-
 
 let selectedImageBase64 = "";
 
@@ -51,8 +60,7 @@ const editImageInput = document.getElementById("editImageInput");
 const editImagePreview = document.getElementById("editImagePreview");
 const editImageDropLabel = document.getElementById("editImageDropLabel");
 
-
-
+// ── File → Base64 ──────────────────────────────────
 function fileToBase64(file) {
     return new Promise((resolve) => {
         const reader = new FileReader();
@@ -61,37 +69,30 @@ function fileToBase64(file) {
     });
 }
 
-
 addImage.addEventListener("change", async () => {
     const file = addImage.files[0];
     if (!file) return;
 
     selectedImageBase64 = await fileToBase64(file);
-
     addImagePreview.src = selectedImageBase64;
     addImagePreview.style.display = "block";
     imageDropLabel.style.display = "none";
 });
 
-
-
-
+// ── Add item ────────────────────────────────────────
 addBtn.addEventListener("click", async () => {
-
     if (!addName.value.trim()) {
         alert("กรุณากรอกชื่อสินค้า");
         return;
     }
 
-    const response = await fetch(`${API_URL}/items`, {
+    const response = await authFetch('/items', {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             name: addName.value,
             cost: addCost.value,
             description: addDescription.value,
             image: selectedImageBase64,
-            userId: FIXED_USER_ID
         })
     });
 
@@ -101,23 +102,30 @@ addBtn.addEventListener("click", async () => {
         addName.value = "";
         addCost.value = "";
         addDescription.value = "";
-
         addImage.value = "";
         selectedImageBase64 = "";
         addImagePreview.style.display = "none";
         imageDropLabel.style.display = "block";
 
         loadItems();
+    } else if (response.status === 401) {
+        alert("Session หมดอายุ กรุณา Login ใหม่");
+        window.location.href = 'login.html';
     } else {
         alert("เพิ่มสินค้าไม่สำเร็จ");
     }
 });
 
-
-
-
+// ── Load items ─────────────────────────────────────
 async function loadItems() {
-    const response = await fetch(`${API_URL}/items/${FIXED_USER_ID}`);
+    // ดูเฉพาะสินค้าของตัวเอง ผ่าน /items/mine (ต้อง auth)
+    const response = await authFetch('/items/mine');
+
+    if (response.status === 401) {
+        window.location.href = 'login.html';
+        return;
+    }
+
     const items = await response.json();
 
     itemCount.textContent = items.length + " ชิ้น";
@@ -128,21 +136,16 @@ async function loadItems() {
         return;
     }
     emptyState.style.display = "none";
-
-
     itemGrid.innerHTML = "";
-
 
     items.forEach((item) => {
         const card = document.createElement("div");
         card.className = "item-card";
 
-
         const firstLetter = item.name ? item.name.charAt(0).toUpperCase() : "?";
         const monogramContent = item.image
             ? `<img src="${item.image}">`
             : firstLetter;
-
 
         card.innerHTML = `
       <div class="item-monogram">${monogramContent}</div>
@@ -165,38 +168,36 @@ async function loadItems() {
         itemGrid.appendChild(card);
     });
 
-
     attachItemButtonEvents();
 }
 
-
-
+// ── Item button events ──────────────────────────────
 function attachItemButtonEvents() {
     document.querySelectorAll(".deleteBtn").forEach((btn) => {
         btn.addEventListener("click", async () => {
             const id = btn.dataset.id;
 
-            const response = await fetch(`${API_URL}/items/${id}`, {
-                method: "DELETE"
-            });
-
+            const response = await authFetch(`/items/${id}`, { method: "DELETE" });
             const data = await response.json();
 
             if (data.success) {
                 loadItems();
+            } else if (response.status === 401) {
+                alert("Session หมดอายุ กรุณา Login ใหม่");
+                window.location.href = 'login.html';
+            } else if (response.status === 403) {
+                alert("คุณไม่มีสิทธิ์ลบสินค้านี้");
             }
         });
     });
 
     document.querySelectorAll(".editBtn").forEach((btn) => {
         btn.addEventListener("click", () => {
-
             editId.value = btn.dataset.id;
             editName.value = btn.dataset.name;
             editCost.value = btn.dataset.cost;
             editDescription.value = btn.dataset.description;
             editImage.value = btn.dataset.image;
-
 
             if (btn.dataset.image) {
                 editImagePreview.src = btn.dataset.image;
@@ -207,35 +208,29 @@ function attachItemButtonEvents() {
                 editImageDropLabel.style.display = "block";
             }
 
-
             editModalOverlay.style.display = "flex";
         });
     });
 }
 
-
-
+// ── Edit image ─────────────────────────────────────
 editImageInput.addEventListener("change", async () => {
     const file = editImageInput.files[0];
     if (!file) return;
 
     const base64 = await fileToBase64(file);
     editImage.value = base64;
-
     editImagePreview.src = base64;
     editImagePreview.style.display = "block";
     editImageDropLabel.style.display = "none";
 });
 
-
-
-
+// ── Save edit ───────────────────────────────────────
 saveEditBtn.addEventListener("click", async () => {
     const id = editId.value;
 
-    const response = await fetch(`${API_URL}/items/${id}`, {
+    const response = await authFetch(`/items/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             name: editName.value,
             cost: editCost.value,
@@ -249,23 +244,24 @@ saveEditBtn.addEventListener("click", async () => {
     if (data.success) {
         editModalOverlay.style.display = "none";
         loadItems();
+    } else if (response.status === 401) {
+        alert("Session หมดอายุ กรุณา Login ใหม่");
+        window.location.href = 'login.html';
+    } else if (response.status === 403) {
+        alert("คุณไม่มีสิทธิ์แก้ไขสินค้านี้");
     } else {
-        alert("แก้ไขไม่สำเร็จ (เช็คว่าเพื่อนเพิ่ม endpoint PUT /items/:id หรือยัง)");
+        alert("แก้ไขไม่สำเร็จ");
     }
 });
-
 
 cancelEditBtn.addEventListener("click", () => {
     editModalOverlay.style.display = "none";
 });
-
 
 editModalOverlay.addEventListener("click", (event) => {
     if (event.target === editModalOverlay) {
         editModalOverlay.style.display = "none";
     }
 });
-
-
 
 loadItems();
